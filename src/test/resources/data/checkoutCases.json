@@ -1,0 +1,102 @@
+{
+  "fullPurchaseFlow_shouldCompleteSuccessfully": {
+    "user": {
+      "userCredentials" : {
+        "username": "standard_user",
+        "password": "secret_sauce",
+        "valid": true
+      },
+      "checkoutInfo": {
+        "firstName": "John1!",
+        "lastName": "Doe1!",
+        "zipCode": "12386"
+      }
+    },
+
+    "product" : {
+      "name": "Sauce Labs Bike Light"
+    },
+    "expectedResult": ""
+
+  },
+  "checkoutWithEmptyFirstName_shouldShowError": {
+
+    "user": {
+      "userCredentials" : {
+        "username": "standard_user",
+        "password": "secret_sauce",
+        "valid": true
+      },
+      "checkoutInfo": {
+        "firstName": "",
+        "lastName": "Doe",
+        "zipCode": "12345"
+      }
+    },
+
+    "product" : {
+      "name": "Sauce Labs Bike Light"
+    },
+
+    "expectedResult": "Error: First Name is required"
+
+  },
+  "checkoutWithEmptyLastName_shouldShowError": {
+    "user": {
+      "userCredentials" : {
+        "username": "standard_user",
+        "password": "secret_sauce",
+        "valid": true
+      },
+      "checkoutInfo": {
+        "firstName": "John",
+        "lastName": "",
+        "zipCode": "12345"
+      }
+    },
+
+    "product" : {
+      "name": "Sauce Labs Bike Light"
+    },
+    "expectedResult":  "Error: Last Name is required"
+
+  },
+  "checkoutWithEmptyPostalCode_shouldShowError": {
+    "user": {
+      "userCredentials" : {
+        "username": "standard_user",
+        "password": "secret_sauce",
+        "valid": true
+      },
+      "checkoutInfo": {
+        "firstName": "John",
+        "lastName": "Doe",
+        "zipCode": ""
+      }
+    },
+    "product" : {
+      "name": "Sauce Labs Bike Light"
+    },
+    "expectedResult": "Error: userInfo Code is required"
+
+  },
+  "checkoutWithSpecialCharactersInName_shouldShowError": {
+    "user": {
+      "userCredentials" : {
+        "username": "standard_user",
+        "password": "secret_sauce",
+        "valid": true
+      },
+      "checkoutInfo": {
+        "firstName": "J@hn",
+        "lastName": "D*e",
+        "zipCode": "12345"
+      }
+    },
+    "product" : {
+      "name": "Sauce Labs Bike Light"
+    },
+    "expectedResult":  "Error: Invalid characters in name"
+
+  }
+}
