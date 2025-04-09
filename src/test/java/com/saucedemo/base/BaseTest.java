@@ -16,13 +16,13 @@ import java.io.IOException;
 import java.util.Map;
 
 
-
 public abstract class BaseTest<T> {
     protected WebDriver driver;
     protected Map<String, T> testCases;
 
     private final String dataFileName;
     private final Class<T> modelClass;
+    private final static String PATH = "src/test/resources/data/";
 
 
     public BaseTest(String dataFileName, Class<T> modelClass) {
@@ -37,7 +37,7 @@ public abstract class BaseTest<T> {
         driver.manage().window().maximize();
 
         ObjectMapper mapper = new ObjectMapper();
-        File file = new File("src/test/resources/data/" + dataFileName);
+        File file = new File(PATH + dataFileName);
         testCases = mapper.readValue(file,
                 mapper.getTypeFactory().constructMapType(Map.class, String.class, modelClass));
     }
