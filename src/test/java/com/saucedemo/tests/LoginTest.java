@@ -3,14 +3,12 @@ package com.saucedemo.tests;
 import com.saucedemo.base.BaseTest;
 import com.saucedemo.model.entities.User;
 import com.saucedemo.model.testcasesmodels.LoginTestCaseModel;
-import com.saucedemo.model.testcasesmodels.ProductTestCaseModel;
 import com.saucedemo.pages.LoginPage;
-import com.saucedemo.utils.TestDataLoader;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
+import static com.saucedemo.constants.ErrorMessages.LOGIN_FAILED_LOGIN;
+import static com.saucedemo.constants.ErrorMessages.PRODUCT_PAGE_NOT_LOADED;
 
 public class LoginTest extends BaseTest<LoginTestCaseModel> {
     public LoginTest() {
@@ -29,7 +27,7 @@ public class LoginTest extends BaseTest<LoginTestCaseModel> {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.loginAs(user.getUserCredentials().getUsername(), user.getUserCredentials().getPassword());
 
-        Assertions.assertTrue(loginPage.isOnProductsPage(), "No se redireccionó a la página de productos");
+        Assertions.assertTrue(loginPage.isOnProductsPage(),PRODUCT_PAGE_NOT_LOADED.get() );
     }
 
     @Test
@@ -40,7 +38,7 @@ public class LoginTest extends BaseTest<LoginTestCaseModel> {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.loginAs(user.getUserCredentials().getUsername(), user.getUserCredentials().getPassword());
 
-        String expectedError = "Epic sadface: Username and password do not match any user in this service";
+        String expectedError = LOGIN_FAILED_LOGIN.get();
         Assertions.assertEquals(expectedError, loginPage.getErrorMessage());
     }
 }

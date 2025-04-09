@@ -14,6 +14,9 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+import static com.saucedemo.constants.ErrorMessages.PRODUCT_NOT_IN_CART;
+import static com.saucedemo.constants.ErrorMessages.PRODUCT_PAGE_NOT_LOADED;
+
 public class CartTest extends BaseTest<CartTestCaseModel> {
 
     public CartTest() {
@@ -30,37 +33,15 @@ public class CartTest extends BaseTest<CartTestCaseModel> {
         // Login
         new LoginPage(driver).loginAs(user.getUserCredentials().getUsername(), user.getUserCredentials().getPassword());
 
-        // Catálogo
+        // Catalog
         ProductsPage productsPage = new ProductsPage(driver);
-        Assertions.assertTrue(productsPage.isLoaded(), "La página de productos no cargó.");
+        Assertions.assertTrue(productsPage.isLoaded(), PRODUCT_PAGE_NOT_LOADED.get());
         productsPage.addProductToCartByName(product.getName());
         productsPage.goToCart();
 
-        // Carrito
+        // Cart
         CartPage cartPage = new CartPage(driver);
         boolean isInCart = cartPage.isProductInCart(product.getName());
-        Assertions.assertTrue(isInCart, "El producto no está en el carrito después de agregarlo.");
+        Assertions.assertTrue(isInCart, PRODUCT_NOT_IN_CART.get());
     }
-
-
-    // Si quieres agregar esta prueba opcional para eliminar producto:
-    /*
-    @Test
-    public void productShouldBeRemovableFromCart() {
-        String product = "Sauce Labs Backpack";
-
-        new LoginPage(driver).loginAs("standard_user", "secret_sauce");
-
-        ProductsPage productsPage = new ProductsPage(driver);
-        productsPage.addProductToCartByName(product);
-        productsPage.goToCart();
-
-        CartPage cartPage = new CartPage(driver);
-        Assertions.assertTrue(cartPage.isProductInCart(product));
-
-        cartPage.removeProductByName(product); // Este método aún no está en CartPage
-
-        Assertions.assertFalse(cartPage.isProductInCart(product), "El producto aún aparece después de removerlo.");
-    }
-    */
 }

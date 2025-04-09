@@ -9,6 +9,9 @@ import com.saucedemo.pages.ProductsPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static com.saucedemo.constants.ErrorMessages.PRODUCT_NOT_PRESENT;
+import static com.saucedemo.constants.ErrorMessages.PRODUCT_PAGE_NOT_LOADED;
+
 
 public class ProductTest extends BaseTest<ProductTestCaseModel> {
 
@@ -19,22 +22,26 @@ public class ProductTest extends BaseTest<ProductTestCaseModel> {
     @Test
     public void productsPageShouldListAllItemsAndAddToCart() {
 
+
         ProductTestCaseModel testCase = testCases.get("productShouldAppearInCartAfterAdding");
         User user = testCase.getUser();
         Product product = testCase.getProduct();
 
+        // === Login ===
+
         LoginPage loginPage = new LoginPage(driver);
         loginPage.loginAs(user.getUserCredentials().getUsername(), user.getUserCredentials().getPassword());
 
+        // === Catalog ===
+
         ProductsPage productsPage = new ProductsPage(driver);
-        Assertions.assertTrue(productsPage.isLoaded(), "No se cargó la página de productos");
+        Assertions.assertTrue(productsPage.isLoaded(), PRODUCT_PAGE_NOT_LOADED.get());
+        Assertions.assertTrue(productsPage.isProductInList(product.getName()), PRODUCT_NOT_PRESENT.get());
 
-        Assertions.assertTrue(productsPage.isProductInList(product.getName()), "Producto no encontrado en la lista");
-
+        // === Cart ===
         productsPage.addProductToCartByName(product.getName());
         productsPage.goToCart();
 
-        // A futuro: validar que el producto está en el carrito.
     }
 
 }

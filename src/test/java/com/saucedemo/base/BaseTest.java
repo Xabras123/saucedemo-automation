@@ -1,8 +1,7 @@
 package com.saucedemo.base;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.saucedemo.model.testcasesmodels.CheckoutTestCaseModel;
-import com.saucedemo.utils.TestDataLoader;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

@@ -6,19 +6,17 @@ import org.openqa.selenium.WebDriver;
 public class LoginPage {
     private WebDriver driver;
 
-    // === Selectores ===
     private By usernameInput = By.id("user-name");
     private By passwordInput = By.id("password");
     private By loginButton = By.id("login-button");
     private By errorMessage = By.cssSelector("h3[data-test='error']");
 
-    // === Constructor ===
     public LoginPage(WebDriver driver) {
         this.driver = driver;
         driver.get("https://www.saucedemo.com/");
     }
 
-    // === Acciones ===
+
     public void enterUsername(String username) {
         driver.findElement(usernameInput).sendKeys(username);
     }
