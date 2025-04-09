@@ -5,16 +5,25 @@ import com.saucedemo.model.entities.CheckoutInfo;
 import com.saucedemo.model.entities.Product;
 import com.saucedemo.model.entities.User;
 import com.saucedemo.model.testcasesmodels.CheckoutTestCaseModel;
+import com.saucedemo.model.testcasesmodels.ProductTestCaseModel;
 import com.saucedemo.pages.*;
+import com.saucedemo.utils.TestDataLoader;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class CheckoutTest extends BaseTest {
+import java.io.IOException;
+
+public class CheckoutTest extends BaseTest<CheckoutTestCaseModel>{
+
+    public CheckoutTest() {
+        super("checkoutCases.json", CheckoutTestCaseModel.class);
+    }
 
     @Test
     public void fullPurchaseFlow_shouldCompleteSuccessfully() {
 
-        CheckoutTestCaseModel testCase = testCases.get("fullPurchaseFlow_shouldCompleteSuccessfully");
+        CheckoutTestCaseModel testCase = (CheckoutTestCaseModel) testCases.get("fullPurchaseFlow_shouldCompleteSuccessfully");
         User user = testCase.getUser();
         CheckoutInfo checkoutInfo = user.getCheckoutInfo();
         Product product = testCase.getProduct();
@@ -42,4 +51,5 @@ public class CheckoutTest extends BaseTest {
         // === Confirmación ===
         Assertions.assertTrue(checkoutPage.isOrderComplete(), "No se completó la orden correctamente");
     }
+
 }

@@ -1,0 +1,15 @@
+{
+  "productShouldAppearInCartAfterAdding": {
+    "user": {
+      "userCredentials": {
+        "username": "standard_user",
+        "password": "secret_sauce",
+        "valid": true
+      }
+    },
+    "product": {
+      "name": "Sauce Labs Bike Light"
+    },
+    "expectedResult": ""
+  }
+}

@@ -1,32 +1,47 @@
 package com.saucedemo.tests;
 
 import com.saucedemo.base.BaseTest;
+import com.saucedemo.model.entities.Product;
+import com.saucedemo.model.entities.User;
+import com.saucedemo.model.testcasesmodels.CartTestCaseModel;
 import com.saucedemo.pages.CartPage;
 import com.saucedemo.pages.LoginPage;
 import com.saucedemo.pages.ProductsPage;
+import com.saucedemo.utils.TestDataLoader;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class CartTest extends BaseTest {
+import java.io.IOException;
+
+public class CartTest extends BaseTest<CartTestCaseModel> {
+
+    public CartTest() {
+        super("cartCases.json", CartTestCaseModel.class);
+    }
 
     @Test
     public void productShouldAppearInCartAfterAdding() {
-        String product = "Sauce Labs Backpack";
+
+        CartTestCaseModel testCase = testCases.get("productShouldAppearInCartAfterAdding");
+        User user = testCase.getUser();
+        Product product = testCase.getProduct();
 
         // Login
-        new LoginPage(driver).loginAs("standard_user", "secret_sauce");
+        new LoginPage(driver).loginAs(user.getUserCredentials().getUsername(), user.getUserCredentials().getPassword());
 
         // Catálogo
         ProductsPage productsPage = new ProductsPage(driver);
         Assertions.assertTrue(productsPage.isLoaded(), "La página de productos no cargó.");
-        productsPage.addProductToCartByName(product);
+        productsPage.addProductToCartByName(product.getName());
         productsPage.goToCart();
 
         // Carrito
         CartPage cartPage = new CartPage(driver);
-        boolean isInCart = cartPage.isProductInCart(product);
+        boolean isInCart = cartPage.isProductInCart(product.getName());
         Assertions.assertTrue(isInCart, "El producto no está en el carrito después de agregarlo.");
     }
+
 
     // Si quieres agregar esta prueba opcional para eliminar producto:
     /*

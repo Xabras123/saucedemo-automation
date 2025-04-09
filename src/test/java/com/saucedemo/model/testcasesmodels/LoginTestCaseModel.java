@@ -2,7 +2,7 @@ package com.saucedemo.model.testcasesmodels;
 
 import com.saucedemo.model.entities.User;
 
-public class LoginTestCasesModel {
+public class LoginTestCaseModel {
 
     private User user;
 
