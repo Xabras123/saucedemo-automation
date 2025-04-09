@@ -13,7 +13,6 @@ public class LoginPage {
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
-        driver.get("https://www.saucedemo.com/");
     }
 
 
