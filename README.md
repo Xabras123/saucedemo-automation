@@ -2,7 +2,7 @@ Saucedemo Automation Project Guide
 
 This project is built using Java, Gradle, JUnit, and follows the Page Object Model pattern. It supports environment-based configuration and can run locally or in CI/CD pipelines.
 
-🛠️ Prerequisites
+Prerequisites
 
 Before running the tests, ensure the following are installed:
 
@@ -27,7 +27,7 @@ Run with QA environment (config-qa.properties):
 ./gradlew test -Denv=qa
 The env parameter is passed as a system property and is used by the ConfigManager to load the correct config file.
 
-🔁 Parallel Execution (Optional)
+Parallel Execution (Optional)
 
 If possible, enable parallel test execution by adding the following in src/test/resources/junit-platform.properties:
 
