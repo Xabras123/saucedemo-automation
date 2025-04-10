@@ -4,8 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.saucedemo.utils.ConfigManager;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -49,8 +52,25 @@ public abstract class BaseTest<T> {
 
     @AfterEach
     public void tearDown() {
+
+        if (driver instanceof TakesScreenshot) {
+            try {
+                TakesScreenshot screenshot = (TakesScreenshot) driver;
+                File srcFile = screenshot.getScreenshotAs(OutputType.FILE);
+
+                String testName = Thread.currentThread().getStackTrace()[2].getMethodName();
+
+                File destFile = new File("screenshots/" + testName + "_failure.png");
+                FileUtils.copyFile(srcFile, destFile);
+                System.out.println("Captura de pantalla guardada en: " + destFile.getAbsolutePath());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         if (driver != null) {
             driver.quit();
         }
     }
+
 }
