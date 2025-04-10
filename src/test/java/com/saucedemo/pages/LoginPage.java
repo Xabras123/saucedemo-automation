@@ -1,5 +1,6 @@
 package com.saucedemo.pages;
 
+import com.saucedemo.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -17,15 +18,15 @@ public class LoginPage {
 
 
     public void enterUsername(String username) {
-        driver.findElement(usernameInput).sendKeys(username);
+        WaitUtils.waitForVisibility(driver, usernameInput).sendKeys(username);
     }
 
     public void enterPassword(String password) {
-        driver.findElement(passwordInput).sendKeys(password);
+        WaitUtils.waitForVisibility(driver, passwordInput).sendKeys(password);
     }
 
     public void clickLogin() {
-        driver.findElement(loginButton).click();
+        WaitUtils.waitForClickability(driver, loginButton).click();
     }
 
     public void loginAs(String username, String password) {
@@ -34,12 +35,11 @@ public class LoginPage {
         clickLogin();
     }
 
-    // === Validaciones ===
     public String getErrorMessage() {
-        return driver.findElement(errorMessage).getText();
+        return WaitUtils.waitForVisibility(driver, errorMessage).getText();
     }
 
     public boolean isOnProductsPage() {
-        return driver.getCurrentUrl().contains("inventory.html");
+        return WaitUtils.waitForUrlContains(driver, "inventory.html");
     }
 }

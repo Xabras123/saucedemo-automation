@@ -7,12 +7,9 @@ import com.saucedemo.model.testcasesmodels.CartTestCaseModel;
 import com.saucedemo.pages.CartPage;
 import com.saucedemo.pages.LoginPage;
 import com.saucedemo.pages.ProductsPage;
-import com.saucedemo.utils.TestDataLoader;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 
 import static com.saucedemo.constants.ErrorMessages.PRODUCT_NOT_IN_CART;
 import static com.saucedemo.constants.ErrorMessages.PRODUCT_PAGE_NOT_LOADED;

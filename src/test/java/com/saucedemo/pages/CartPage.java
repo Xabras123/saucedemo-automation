@@ -1,5 +1,6 @@
 package com.saucedemo.pages;
 
+import com.saucedemo.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,20 +10,19 @@ import java.util.List;
 public class CartPage {
     private WebDriver driver;
 
-    // === Selectores ===
     private By cartItems = By.className("cart_item");
     private By itemName = By.className("inventory_item_name");
     private By checkoutButton = By.id("checkout");
 
-    // === Constructor ===
     public CartPage(WebDriver driver) {
         this.driver = driver;
     }
 
     public boolean isProductInCart(String name) {
-        List<WebElement> items = driver.findElements(cartItems);
+        List<WebElement> items = WaitUtils.waitForPresenceOfAllElements(driver, cartItems);
         for (WebElement item : items) {
-            if (item.findElement(itemName).getText().equalsIgnoreCase(name)) {
+            String text = item.findElement(itemName).getText();
+            if (text.equalsIgnoreCase(name)) {
                 return true;
             }
         }
@@ -30,6 +30,7 @@ public class CartPage {
     }
 
     public void clickCheckout() {
-        driver.findElement(checkoutButton).click();
+        WebElement button = WaitUtils.waitForClickability(driver, checkoutButton);
+        button.click();
     }
 }
